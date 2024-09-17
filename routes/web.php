@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Car;
+use App\Models\Rental;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +28,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard_admin', function () {
-    return view('dashboard_admin');
+    $carCnt = Car::count();
+    $rentalCnt = Rental::where('end_date','>',date('Y-m-d hh:mm:ss'))->count();
+    $availableCnt = Car::join('rentals','rentals.car_id','=','cars.id')->where('rentals.end_date','<',date('Y-m-d hh:mm:ss'))->count();
+    $totalEarn = Rental::sum('total_cost');
+
+    return view('dashboard_admin',['carCnt'=>$carCnt,'rentalCnt'=>$rentalCnt,'availableCnt'=>$availableCnt,'totalEarn'=>$totalEarn]);
 })->middleware(['auth', 'verified'])->name('admin.dashboard');
 
 Route::middleware('auth')->group(function () {
