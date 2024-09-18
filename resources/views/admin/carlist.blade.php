@@ -38,7 +38,7 @@
                                     <td class="py-2 px-4 border-b text-center">{{ $cl['daily_rent_price'] }}</td>
                                     <td class="py-2 px-4 border-b text-center">{{ $cl['availability'] ? "Available" : "Not Available" }}</td>
                                     <td class="py-2 px-4 border-b text-center">
-                                        <img src="{{ $cl['image'] }}" alt="Car Image" class="w-16 h-16 object-cover mx-auto">
+                                        <img src="{{ asset('storage/' . $cl['image']) }}" alt="Car Image" class="w-16 h-16 object-cover mx-auto">
                                     </td>
                                     <td class="py-2 px-4 border-b text-center">
                                         <button style="background-color: #facc15;" class="text-white px-4 py-2 rounded">Edit</button>
