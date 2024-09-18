@@ -61,7 +61,9 @@ class CarController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Car::where('id','=',$id)->get();
+
+        return view('admin.caredit',['carinfo'=>$data]);
     }
 
     /**

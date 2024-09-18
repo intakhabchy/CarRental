@@ -41,7 +41,8 @@
                                         <img src="{{ asset('storage/' . $cl['image']) }}" alt="Car Image" class="w-16 h-16 object-cover mx-auto">
                                     </td>
                                     <td class="py-2 px-4 border-b text-center">
-                                        <button style="background-color: #facc15;" class="text-white px-4 py-2 rounded">Edit</button>
+                                        {{-- <button style="background-color: #facc15;" class="text-white px-4 py-2 rounded">Edit</button> --}}
+                                        <a href="{{ route('admin.caredit',$cl['id']) }}" class="inline-block text-white px-4 py-2 rounded" style="background-color: #facc15;">Edit</a>
                                     </td>
                                     <td class="py-2 px-4 border-b text-center">
                                         <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
