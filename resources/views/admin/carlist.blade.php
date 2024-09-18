@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard of Admin') }}
+            {{ __('Car List for Admin') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h3 class="font-semibold text-lg text-center">Car List:</h3>
+                    <div class="text-center mb-4">
+                        <a href="{{ route('admin.carcreate') }}" class="inline-block text-white px-4 py-2 rounded" style="background-color: green;">Add</a>
+                    </div>
                     <table class="min-w-full bg-white border border-gray-200 mx-auto">
                         <thead>
                             <tr>
@@ -34,13 +36,12 @@
                                     <td class="py-2 px-4 border-b text-center">{{ $cl['model'] }}</td>
                                     <td class="py-2 px-4 border-b text-center">{{ $cl['car_type'] }}</td>
                                     <td class="py-2 px-4 border-b text-center">{{ $cl['daily_rent_price'] }}</td>
-                                    <td class="py-2 px-4 border-b text-center">{{ ($cl['availability'])?"Available":"Not Available" }}</td>
+                                    <td class="py-2 px-4 border-b text-center">{{ $cl['availability'] ? "Available" : "Not Available" }}</td>
                                     <td class="py-2 px-4 border-b text-center">
                                         <img src="{{ $cl['image'] }}" alt="Car Image" class="w-16 h-16 object-cover mx-auto">
                                     </td>
                                     <td class="py-2 px-4 border-b text-center">
                                         <button style="background-color: #facc15;" class="text-white px-4 py-2 rounded">Edit</button>
-
                                     </td>
                                     <td class="py-2 px-4 border-b text-center">
                                         <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>

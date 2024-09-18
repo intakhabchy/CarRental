@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/carlist',[CarController::class,'index'])->name('admin.carlist');
+Route::get('/carcreate',[CarController::class,'create'])->name('admin.carcreate');
+Route::post('/carstore',[CarController::class,'store'])->name('admin.carstore');
 Route::get('/rentallist',[RentalController::class,'index'])->name('admin.rentallist');
 Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist');
 
