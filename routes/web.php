@@ -47,6 +47,7 @@ Route::get('/carcreate',[CarController::class,'create'])->name('admin.carcreate'
 Route::post('/carstore',[CarController::class,'store'])->name('admin.carstore');
 Route::get('/caredit/{id}',[CarController::class,'edit'])->name('admin.caredit');
 Route::put('/carupdate/{id}',[CarController::class,'update'])->name('admin.carupdate');
+Route::delete('/cardelete/{id}',[CarController::class,'destroy'])->name('admin.cardelete');
 
 Route::get('/rentallist',[RentalController::class,'index'])->name('admin.rentallist');
 Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist');

@@ -50,7 +50,12 @@
                                         <a href="{{ route('admin.caredit',$cl['id']) }}" class="inline-block text-white px-4 py-2 rounded" style="background-color: #facc15;">Edit</a>
                                     </td>
                                     <td class="py-2 px-4 border-b text-center">
-                                        <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
+                                        <form action="{{route('admin.cardelete',$cl['id'])}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
+                                        </form>
+                                        
                                     </td>
                                 </tr>
                             @endforeach
