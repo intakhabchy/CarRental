@@ -12,6 +12,11 @@
                     <div class="text-center mb-4">
                         <a href="{{ route('admin.carcreate') }}" class="inline-block text-white px-4 py-2 rounded" style="background-color: green;">Add</a>
                     </div>
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                        @if (session('success'))
+                            {{session('success')}}                            
+                        @endif
+                    </div>
                     <table class="min-w-full bg-white border border-gray-200 mx-auto">
                         <thead>
                             <tr>

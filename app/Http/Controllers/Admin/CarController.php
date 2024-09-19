@@ -71,7 +71,24 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $car = Car::find($id);
+
+        $file = $request->file('image');
+        $fileName = time().'_'. $file->getClientOriginalName();
+        $filePath = $file->storeAs('uploads',$fileName,'public');
+
+        $car->update([
+            'name'=>$request->input('name'),
+            'brand'=>$request->input('brand'),
+            'model'=>$request->input('model'),
+            'year'=>$request->input('year'),
+            'car_type'=>$request->input('car_type'),
+            'daily_rent_price'=>$request->input('daily_rent_price'),
+            'availability'=>$request->input('availability'),
+            'image'=>$filePath
+        ]);
+
+        return redirect()->route('admin.carlist')->with('success','Car info updated');
     }
 
     /**
