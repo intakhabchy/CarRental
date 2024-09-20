@@ -47,7 +47,6 @@ class RentalController extends Controller
         $startTimestamp = strtotime($request->input('start_date'));
         $endTimestamp = strtotime($request->input('end_date'));
 
-        // Calculate the difference in seconds, then convert to days
         $dayDifference = ($endTimestamp - $startTimestamp) / (60 * 60 * 24);
         $totalPrice = $dayDifference*$dailyPrice;
 
@@ -75,7 +74,11 @@ class RentalController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $users = User::all();
+        $cars = Car::all();
+        $data = Rental::where('id','=',$id)->get();
+
+        return view('admin.rentaledit',['cars'=>$cars,'users'=>$users,'rentalinfo'=>$data]);
     }
 
     /**
@@ -83,7 +86,26 @@ class RentalController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $carInfo = Car::find($request->input('car_id'));
+        $dailyPrice = $carInfo->daily_rent_price;
+
+        $startTimestamp = strtotime($request->input('start_date'));
+        $endTimestamp = strtotime($request->input('end_date'));
+
+        $dayDifference = ($endTimestamp - $startTimestamp) / (60 * 60 * 24);
+        $totalPrice = $dayDifference*$dailyPrice;
+
+        $rental = Rental::find($id);
+        
+        $rental->update([
+            'car_id'=>$request->input('car_id'),
+            'user_id'=>$request->input('user_id'),
+            'start_date'=>$request->input('start_date'),
+            'end_date'=>$request->input('end_date'),
+            'total_cost'=>$totalPrice
+        ]);
+
+        return redirect()->route('admin.rentallist')->with('success','Rental updated');
     }
 
     /**
@@ -92,18 +114,5 @@ class RentalController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function getCarPrice(Request $request)
-    {
-        // Get car by its ID
-        $car = Car::find($request->car_id);
-
-        // Check if car exists and return the price
-        if ($car) {
-            return response()->json(['price' => $car->price]);
-        } else {
-            return response()->json(['error' => 'Car not found'], 404);
-        }
     }
 }
