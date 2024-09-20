@@ -9,6 +9,10 @@ class Rental extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'car_id','user_id','start_date','end_date','total_cost'
+    ];
+
     public function car(){
         return $this->belongsTo(Car::class);
     }

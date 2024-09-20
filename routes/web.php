@@ -50,6 +50,16 @@ Route::put('/carupdate/{id}',[CarController::class,'update'])->name('admin.carup
 Route::delete('/cardelete/{id}',[CarController::class,'destroy'])->name('admin.cardelete');
 
 Route::get('/rentallist',[RentalController::class,'index'])->name('admin.rentallist');
+Route::get('/rentalview',[RentalController::class,'show'])->name('admin.rentalview');
+Route::get('/rentalcreate',[RentalController::class,'create'])->name('admin.rentalcreate');
+Route::post('/rentalstore',[RentalController::class,'store'])->name('admin.rentalstore');
+Route::get('/rentaledit/{id}',[RentalController::class,'edit'])->name('admin.rentaledit');
+Route::put('/rentalupdate/{id}',[RentalController::class,'update'])->name('admin.rentalupdate');
+Route::delete('/rentaldelete/{id}',[RentalController::class,'destroy'])->name('admin.rentaldelete');
+Route::get('/get-car-price', [CarController::class, 'getCarPrice']);
+
+
+Route::get('/rentallist',[RentalController::class,'index'])->name('admin.rentallist');
 Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist');
 
 require __DIR__.'/auth.php';
