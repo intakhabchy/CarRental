@@ -50,7 +50,7 @@ Route::put('/carupdate/{id}',[CarController::class,'update'])->name('admin.carup
 Route::delete('/cardelete/{id}',[CarController::class,'destroy'])->name('admin.cardelete');
 
 Route::get('/rentallist',[RentalController::class,'index'])->name('admin.rentallist');
-Route::get('/rentalview',[RentalController::class,'show'])->name('admin.rentalview');
+Route::get('/rentalview/{id}',[RentalController::class,'show'])->name('admin.rentalview');
 Route::get('/rentalcreate',[RentalController::class,'create'])->name('admin.rentalcreate');
 Route::post('/rentalstore',[RentalController::class,'store'])->name('admin.rentalstore');
 Route::get('/rentaledit/{id}',[RentalController::class,'edit'])->name('admin.rentaledit');

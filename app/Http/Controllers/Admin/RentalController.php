@@ -66,7 +66,14 @@ class RentalController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $rentalinfo = Rental::join('users', 'users.id', '=', 'rentals.user_id')
+        ->join('cars', 'cars.id', '=', 'rentals.car_id')
+        ->where('rentals.id', '=', $id)
+        ->select('rentals.id','users.name as user_name','cars.name as car_name','cars.brand as car_brand',
+        'rentals.start_date as start_date','rentals.end_date as end_date','rentals.total_cost') // Example of selected columns
+        ->get();
+
+        return view('admin.rentalview',['rentalinfo'=>$rentalinfo]);
     }
 
     /**
