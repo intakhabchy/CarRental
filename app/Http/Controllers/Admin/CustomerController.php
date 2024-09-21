@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -12,7 +13,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customerlist = User::where('role','=','customer')->get();
+
+        return view('admin.customerlist',['customerlist'=>$customerlist]);
     }
 
     /**
@@ -36,7 +39,9 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $customerinfo = User::where('id','=',$id)->get();
+
+        return view('admin.customerview',['customerinfo'=>$customerinfo]);
     }
 
     /**

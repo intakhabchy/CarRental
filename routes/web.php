@@ -56,10 +56,17 @@ Route::post('/rentalstore',[RentalController::class,'store'])->name('admin.renta
 Route::get('/rentaledit/{id}',[RentalController::class,'edit'])->name('admin.rentaledit');
 Route::put('/rentalupdate/{id}',[RentalController::class,'update'])->name('admin.rentalupdate');
 Route::delete('/rentaldelete/{id}',[RentalController::class,'destroy'])->name('admin.rentaldelete');
-Route::get('/get-car-price', [CarController::class, 'getCarPrice']);
+
+Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist');
+Route::get('/customerview/{id}',[CustomerController::class,'show'])->name('admin.customerview');
+Route::get('/customercreate',[CustomerController::class,'create'])->name('admin.customercreate');
+Route::post('/customerstore',[CustomerController::class,'store'])->name('admin.customerstore');
+Route::get('/customeredit/{id}',[CustomerController::class,'edit'])->name('admin.customeredit');
+Route::put('/customerupdate/{id}',[CustomerController::class,'update'])->name('admin.customerupdate');
+Route::delete('/customerdelete/{id}',[CustomerController::class,'destroy'])->name('admin.customerdelete');
 
 
-Route::get('/rentallist',[RentalController::class,'index'])->name('admin.rentallist');
+
 Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist');
 
 require __DIR__.'/auth.php';
