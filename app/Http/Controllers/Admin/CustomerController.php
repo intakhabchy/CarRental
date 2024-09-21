@@ -49,7 +49,9 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $customerinfo = User::where('id','=',$id)->get();
+
+        return view('admin.customeredit',['customerinfo'=>$customerinfo]);
     }
 
     /**
@@ -57,7 +59,14 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $customerinfo = User::find($id);
+
+        $customerinfo->update([
+            'name'=>$request->input('name'),
+            'email'=>$request->input('email')
+        ]);
+
+        return redirect()->route('admin.customerlist')->with('success','Customer info updated');
     }
 
     /**
