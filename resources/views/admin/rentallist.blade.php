@@ -43,7 +43,12 @@
                                     <td class="py-2 px-4 border-b text-center">{{ $rl['start_date'] }}</td>
                                     <td class="py-2 px-4 border-b text-center">{{ $rl['end_date'] }}</td>
                                     <td class="py-2 px-4 border-b text-center">{{ $rl['total_cost'] }}</td>
-                                    <td class="py-2 px-4 border-b text-center">{{ $rl['end_date']<date('Y-m-d') ? "Completed" : ( ($rl['end_date']>date('Y-m-d') && $rl['start_date']<date('Y-m-d'))?"Ongoing":"Cancelled" ) }}</td>
+                                    <td class="py-2 px-4 border-b text-center">
+                                        @if ($rl['cancel_status']==1) Cancelled
+                                        @elseif (strtotime($rl['start_date'])<strtotime(date('Y-m-d')) && strtotime($rl['end_date'])>strtotime(date('Y-m-d'))) Ongoing
+                                        @elseif (strtotime($rl['end_date'])<strtotime(date('Y-m-d'))) Completed
+                                        @endif
+                                    </td>
                                     <td class="py-2 px-4 border-b text-center">
                                         <a href="{{ route('admin.rentalview',$rl['id']) }}" class="inline-block text-white px-4 py-2 rounded" style="background-color: green;">View</a>
                                     </td>
@@ -54,7 +59,7 @@
                                         <form action="{{route('admin.rentaldelete',$rl['id'])}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Cancel</button>
+                                            <button @if ($rl['cancel_status']==1) disabled @endif class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">@if ($rl['cancel_status']==1) Cancelled @else Cancel @endif</button>
                                         </form>
                                     </td>
                                 </tr>

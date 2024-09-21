@@ -19,7 +19,7 @@ class RentalController extends Controller
 
         $rentallist = Rental::join('cars','cars.id','=','rentals.car_id')
             ->join('users','users.id','=','rentals.user_id')
-            ->select('rentals.id as id','users.name as user_name','cars.name as car_name','cars.brand as car_brand','rentals.start_date as start_date','rentals.end_date as end_date','rentals.total_cost')
+            ->select('rentals.id as id','users.name as user_name','cars.name as car_name','cars.brand as car_brand','rentals.start_date as start_date','rentals.end_date as end_date','rentals.total_cost','rentals.cancel_status')
             ->get();
         // echo json_encode($rentallist);return;
         return view('admin.rentallist',['rentallist'=>$rentallist]);
@@ -113,6 +113,12 @@ class RentalController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $rental = Rental::find($id);
+
+        $rental->update([
+            'cancel_status'=>'1'
+        ]);
+
+        return redirect()->route('admin.rentallist')->with('success','Rental cancelled');
     }
 }
