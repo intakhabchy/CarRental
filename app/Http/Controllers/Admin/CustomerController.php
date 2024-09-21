@@ -76,6 +76,12 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $customer = User::find($id);
+
+        $customer->update([
+            'delete_stat'=>1
+        ]);
+
+        return redirect()->route('admin.customerlist')->with('success','Customer deleted');
     }
 }

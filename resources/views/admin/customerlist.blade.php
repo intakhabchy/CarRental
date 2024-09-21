@@ -45,7 +45,7 @@
                                         <form action="{{route('admin.customerdelete',$cl['id'])}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
+                                            <button @if ($cl['delete_stat']==1) disabled @endif class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">@if ($cl['delete_stat']==1) Deleted @else Delete @endif</button>
                                         </form>
                                     </td>
                                 </tr>
