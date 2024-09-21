@@ -20,6 +20,8 @@
                                 <th class="py-2 px-4 border-b text-center">Sl</th>
                                 <th class="py-2 px-4 border-b text-center">Name</th>
                                 <th class="py-2 px-4 border-b text-center">Email</th>
+                                <th class="py-2 px-4 border-b text-center">Phone</th>
+                                <th class="py-2 px-4 border-b text-center">Address</th>
                                 <th class="py-2 px-4 border-b text-center">Action</th>
                                 <th class="py-2 px-4 border-b text-center">Action</th>
                                 <th class="py-2 px-4 border-b text-center">Action</th>
@@ -31,6 +33,8 @@
                                     <td class="py-2 px-4 border-b text-center">{{ $key + 1 }}</td>
                                     <td class="py-2 px-4 border-b text-center">{{ $cl['name'] }}</td>
                                     <td class="py-2 px-4 border-b text-center">{{ $cl['email'] }}</td>
+                                    <td class="py-2 px-4 border-b text-center">{{ $cl['phone'] }}</td>
+                                    <td class="py-2 px-4 border-b text-center">{{ $cl['address'] }}</td>
                                     <td class="py-2 px-4 border-b text-center">
                                         <a href="{{ route('admin.customerview',$cl['id']) }}" class="inline-block text-white px-4 py-2 rounded" style="background-color: green;">View</a>
                                     </td>

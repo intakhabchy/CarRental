@@ -21,6 +21,16 @@
                             <label for="end_date" class="block text-gray-700">Email:</label>
                             <input type="text" name="email" id="email" class="w-full mt-2 p-2 border rounded" required value={{$customerinfo[0]['email']}}>
                         </div>
+
+                        <div class="mb-4">
+                            <label for="end_date" class="block text-gray-700">Phone:</label>
+                            <input type="text" name="phone" id="phone" class="w-full mt-2 p-2 border rounded" required value={{$customerinfo[0]['phone']}}>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="end_date" class="block text-gray-700">Address:</label>
+                            <input type="text" name="address" id="address" class="w-full mt-2 p-2 border rounded" required value={{$customerinfo[0]['address']}}>
+                        </div>
                     
                         <div class="text-right">
                             <button style="background-color: green" class="text-white px-4 py-2 rounded">Update</button>

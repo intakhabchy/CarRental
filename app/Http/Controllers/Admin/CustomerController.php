@@ -63,7 +63,9 @@ class CustomerController extends Controller
 
         $customerinfo->update([
             'name'=>$request->input('name'),
-            'email'=>$request->input('email')
+            'email'=>$request->input('email'),
+            'phone'=>$request->input('phone'),
+            'address'=>$request->input('address')
         ]);
 
         return redirect()->route('admin.customerlist')->with('success','Customer info updated');
