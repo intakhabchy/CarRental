@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\RentalController;
+use App\Http\Controllers\Frontend\CarController as FrontendCarController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Car;
 use App\Models\Rental;
@@ -25,7 +26,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('customer.dashboard');
 
 Route::get('/dashboard_admin', function () {
     $carCnt = Car::count();
@@ -65,7 +66,7 @@ Route::get('/customeredit/{id}',[CustomerController::class,'edit'])->name('admin
 Route::put('/customerupdate/{id}',[CustomerController::class,'update'])->name('admin.customerupdate');
 Route::delete('/customerdelete/{id}',[CustomerController::class,'destroy'])->name('admin.customerdelete');
 
-
+Route::get('/carlist',[FrontendCarController::class,'index'])->name('customer.carlist');
 
 Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist');
 
