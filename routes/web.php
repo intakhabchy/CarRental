@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\Frontend\CarController as FrontendCarController;
+use App\Http\Controllers\Frontend\RentalController as FrontendRentalController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Car;
 use App\Models\Rental;
@@ -67,6 +68,9 @@ Route::put('/customerupdate/{id}',[CustomerController::class,'update'])->name('a
 Route::delete('/customerdelete/{id}',[CustomerController::class,'destroy'])->name('admin.customerdelete');
 
 Route::get('/carlist',[FrontendCarController::class,'index'])->name('customer.carlist');
+
+Route::get('/bookinglist',[FrontendRentalController::class,'index'])->name('customer.bookinglist');
+Route::delete('/bookingcancel/{id}',[FrontendRentalController::class,'destroy'])->name('customer.bookingcancel');
 
 Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist');
 

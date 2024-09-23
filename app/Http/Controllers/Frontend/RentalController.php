@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rental;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RentalController extends Controller
 {
@@ -12,7 +14,16 @@ class RentalController extends Controller
      */
     public function index()
     {
-        //
+        $useremail = Auth::user()->email;
+
+        $bookinglist = Rental::join('users','users.id','=','rentals.user_id')
+                    ->join('cars','cars.id','=','rentals.car_id')
+                    ->where('email','=',$useremail)
+                    ->select('rentals.id as rent_id','cars.name as car_name',
+                    'cars.brand as car_brand','cars.model as car_model','cars.car_type as car_type','daily_rent_price','start_date','end_date','cancel_status')
+                    ->get();
+
+        return view('customer.bookinglist',['bookinglist'=>$bookinglist]);
     }
 
     /**
@@ -60,6 +71,12 @@ class RentalController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $rentalinfo = Rental::find($id);
+
+        $rentalinfo->update([
+            'cancel_status'=>1
+        ]);
+
+        return redirect()->route('customer.bookinglist')->with('success','booking cancelled');
     }
 }
