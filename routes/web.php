@@ -33,7 +33,13 @@ Route::get('/dashboard', function () {
 Route::get('/dashboard_admin', function () {
     $carCnt = Car::count();
     $rentalCnt = Rental::where('end_date','>',date('Y-m-d hh:mm:ss'))->count();
-    $availableCnt = Car::join('rentals','rentals.car_id','=','cars.id')->where('rentals.end_date','<',date('Y-m-d hh:mm:ss'))->count();
+    // $availableCnt = Car::join('rentals','rentals.car_id','=','cars.id')->where('rentals.end_date','<',date('Y-m-d hh:mm:ss'))->count();
+    $availableCnt = Car::whereNotIn('id', function ($query) {
+        $query->select('car_id')
+              ->from('rentals')
+              ->where('start_date', '<', now())
+              ->where('end_date', '>', now());
+    })->count();
     $totalEarn = Rental::sum('total_cost');
 
     return view('dashboard_admin',['carCnt'=>$carCnt,'rentalCnt'=>$rentalCnt,'availableCnt'=>$availableCnt,'totalEarn'=>$totalEarn]);
@@ -45,7 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/carlist',[CarController::class,'index'])->name('admin.carlist');
+Route::get('/carlist/admin',[CarController::class,'index'])->name('admin.carlist');
 Route::get('/carcreate',[CarController::class,'create'])->name('admin.carcreate');
 Route::post('/carstore',[CarController::class,'store'])->name('admin.carstore');
 Route::get('/caredit/{id}',[CarController::class,'edit'])->name('admin.caredit');
