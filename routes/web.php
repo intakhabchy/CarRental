@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\Frontend\CarController as FrontendCarController;
+use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\RentalController as FrontendRentalController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Car;
@@ -75,5 +76,7 @@ Route::post('/bookingstore',[FrontendRentalController::class,'store'])->name('cu
 Route::delete('/bookingcancel/{id}',[FrontendRentalController::class,'destroy'])->name('customer.bookingcancel');
 
 Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist');
+
+Route::get('/aboutus',[PageController::class,'index'])->name('customer.aboutus');
 
 require __DIR__.'/auth.php';
