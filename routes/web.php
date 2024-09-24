@@ -70,6 +70,8 @@ Route::delete('/customerdelete/{id}',[CustomerController::class,'destroy'])->nam
 Route::get('/carlist',[FrontendCarController::class,'index'])->name('customer.carlist');
 
 Route::get('/bookinglist',[FrontendRentalController::class,'index'])->name('customer.bookinglist');
+Route::get('/bookingcreate',[FrontendRentalController::class,'create'])->name('customer.bookingcreate');
+Route::post('/bookingstore',[FrontendRentalController::class,'store'])->name('customer.bookingstore');
 Route::delete('/bookingcancel/{id}',[FrontendRentalController::class,'destroy'])->name('customer.bookingcancel');
 
 Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist');
