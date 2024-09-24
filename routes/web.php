@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('customer.dashboard');
+})->middleware(['auth', 'verified','checkrole:customer'])->name('customer.dashboard');
 
 Route::get('/dashboard_admin', function () {
     $carCnt = Car::count();
@@ -43,7 +43,7 @@ Route::get('/dashboard_admin', function () {
     $totalEarn = Rental::sum('total_cost');
 
     return view('dashboard_admin',['carCnt'=>$carCnt,'rentalCnt'=>$rentalCnt,'availableCnt'=>$availableCnt,'totalEarn'=>$totalEarn]);
-})->middleware(['auth', 'verified'])->name('admin.dashboard');
+})->middleware(['auth', 'verified','checkrole:admin'])->name('admin.dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -51,38 +51,35 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/carlist/admin',[CarController::class,'index'])->name('admin.carlist');
-Route::get('/carcreate',[CarController::class,'create'])->name('admin.carcreate');
-Route::post('/carstore',[CarController::class,'store'])->name('admin.carstore');
-Route::get('/caredit/{id}',[CarController::class,'edit'])->name('admin.caredit');
-Route::put('/carupdate/{id}',[CarController::class,'update'])->name('admin.carupdate');
-Route::delete('/cardelete/{id}',[CarController::class,'destroy'])->name('admin.cardelete');
+Route::get('/carlist/admin',[CarController::class,'index'])->name('admin.carlist')->middleware('auth','checkrole:admin');
+Route::get('/carcreate',[CarController::class,'create'])->name('admin.carcreate')->middleware('auth','checkrole:admin');
+Route::post('/carstore',[CarController::class,'store'])->name('admin.carstore')->middleware('auth','checkrole:admin');Route::get('/caredit/{id}',[CarController::class,'edit'])->name('admin.caredit');
+Route::put('/carupdate/{id}',[CarController::class,'update'])->name('admin.carupdate')->middleware('auth','checkrole:admin');
+Route::delete('/cardelete/{id}',[CarController::class,'destroy'])->name('admin.cardelete')->middleware('auth','checkrole:admin');
 
-Route::get('/rentallist',[RentalController::class,'index'])->name('admin.rentallist');
-Route::get('/rentalview/{id}',[RentalController::class,'show'])->name('admin.rentalview');
-Route::get('/rentalcreate',[RentalController::class,'create'])->name('admin.rentalcreate');
-Route::post('/rentalstore',[RentalController::class,'store'])->name('admin.rentalstore');
-Route::get('/rentaledit/{id}',[RentalController::class,'edit'])->name('admin.rentaledit');
-Route::put('/rentalupdate/{id}',[RentalController::class,'update'])->name('admin.rentalupdate');
-Route::delete('/rentaldelete/{id}',[RentalController::class,'destroy'])->name('admin.rentaldelete');
+Route::get('/rentallist',[RentalController::class,'index'])->name('admin.rentallist')->middleware('auth','checkrole:admin');
+Route::get('/rentalview/{id}',[RentalController::class,'show'])->name('admin.rentalview')->middleware('auth','checkrole:admin');
+Route::get('/rentalcreate',[RentalController::class,'create'])->name('admin.rentalcreate')->middleware('auth','checkrole:admin');
+Route::post('/rentalstore',[RentalController::class,'store'])->name('admin.rentalstore')->middleware('auth','checkrole:admin');
+Route::get('/rentaledit/{id}',[RentalController::class,'edit'])->name('admin.rentaledit')->middleware('auth','checkrole:admin');
+Route::put('/rentalupdate/{id}',[RentalController::class,'update'])->name('admin.rentalupdate')->middleware('auth','checkrole:admin');
+Route::delete('/rentaldelete/{id}',[RentalController::class,'destroy'])->name('admin.rentaldelete')->middleware('auth','checkrole:admin');
 
-Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist');
-Route::get('/customerview/{id}',[CustomerController::class,'show'])->name('admin.customerview');
-Route::get('/customercreate',[CustomerController::class,'create'])->name('admin.customercreate');
-Route::post('/customerstore',[CustomerController::class,'store'])->name('admin.customerstore');
-Route::get('/customeredit/{id}',[CustomerController::class,'edit'])->name('admin.customeredit');
-Route::put('/customerupdate/{id}',[CustomerController::class,'update'])->name('admin.customerupdate');
-Route::delete('/customerdelete/{id}',[CustomerController::class,'destroy'])->name('admin.customerdelete');
+Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist')->middleware('auth','checkrole:admin');
+Route::get('/customerview/{id}',[CustomerController::class,'show'])->name('admin.customerview')->middleware('auth','checkrole:admin');
+Route::get('/customercreate',[CustomerController::class,'create'])->name('admin.customercreate')->middleware('auth','checkrole:admin');
+Route::post('/customerstore',[CustomerController::class,'store'])->name('admin.customerstore')->middleware('auth','checkrole:admin');
+Route::get('/customeredit/{id}',[CustomerController::class,'edit'])->name('admin.customeredit')->middleware('auth','checkrole:admin');
+Route::put('/customerupdate/{id}',[CustomerController::class,'update'])->name('admin.customerupdate')->middleware('auth','checkrole:admin');
+Route::delete('/customerdelete/{id}',[CustomerController::class,'destroy'])->name('admin.customerdelete')->middleware('auth','checkrole:admin');
 
-Route::get('/carlist',[FrontendCarController::class,'index'])->name('customer.carlist');
+Route::get('/carlist',[FrontendCarController::class,'index'])->name('customer.carlist')->middleware('auth','checkrole:customer');
 
-Route::get('/bookinglist',[FrontendRentalController::class,'index'])->name('customer.bookinglist');
-Route::get('/bookingcreate',[FrontendRentalController::class,'create'])->name('customer.bookingcreate');
-Route::post('/bookingstore',[FrontendRentalController::class,'store'])->name('customer.bookingstore');
-Route::delete('/bookingcancel/{id}',[FrontendRentalController::class,'destroy'])->name('customer.bookingcancel');
+Route::get('/bookinglist',[FrontendRentalController::class,'index'])->name('customer.bookinglist')->middleware('auth','checkrole:customer');
+Route::get('/bookingcreate',[FrontendRentalController::class,'create'])->name('customer.bookingcreate')->middleware('auth','checkrole:customer');
+Route::post('/bookingstore',[FrontendRentalController::class,'store'])->name('customer.bookingstore')->middleware('auth','checkrole:customer');
+Route::delete('/bookingcancel/{id}',[FrontendRentalController::class,'destroy'])->name('customer.bookingcancel')->middleware('auth','checkrole:customer');
 
-Route::get('/customerlist',[CustomerController::class,'index'])->name('admin.customerlist');
-
-Route::get('/aboutus',[PageController::class,'index'])->name('customer.aboutus');
+Route::get('/aboutus',[PageController::class,'index'])->name('customer.aboutus')->middleware('auth','checkrole:customer');
 
 require __DIR__.'/auth.php';
