@@ -20,10 +20,6 @@
             <p class="text-gray-600">Hello,</p>
             <p class="text-gray-600">{{$emailBody}}</p>
         </div>
-
-        <div class="text-gray-500 text-xs text-center mt-8">
-            <p>If you did not sign up for this account, please ignore this email.</p>
-        </div>
     </div>
 </body>
 </html>

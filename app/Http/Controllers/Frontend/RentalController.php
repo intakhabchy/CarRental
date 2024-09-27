@@ -100,7 +100,11 @@ class RentalController extends Controller
             $bookingEmail = Auth::user()->email;
             $emailBody = "Your booking is confirmed";
             Mail::to($bookingEmail)->send(new SendMail($emailBody));
-            
+
+            $adminEmail = User::where('role','=','admin')->select('email')->get();
+            $emailBody = "A booking is confirmed for ".Auth::user()->name;
+            Mail::to($adminEmail)->send(new SendMail($emailBody));
+
             return redirect()->route('customer.bookingcreate')->with('success','Booking Successful');
         }
         else
