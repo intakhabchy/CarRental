@@ -50,7 +50,7 @@
                         </x-nav-link>
 
                         <x-nav-link :href="route('customer.aboutus')" :active="request()->routeIs('customer.aboutus')">
-                            {{ __('Abou US') }}
+                            {{ __('Abou Us') }}
                         </x-nav-link>
                     @endif
                 </div>
