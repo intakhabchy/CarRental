@@ -32,14 +32,17 @@ Route::get('/dashboard', function () {
 
 Route::get('/dashboard_admin', function () {
     $carCnt = Car::count();
-    $rentalCnt = Rental::where('end_date','>',date('Y-m-d hh:mm:ss'))->count();
-    // $availableCnt = Car::join('rentals','rentals.car_id','=','cars.id')->where('rentals.end_date','<',date('Y-m-d hh:mm:ss'))->count();
+    $rentalCnt = Rental::where('end_date','>',date('Y-m-d hh:mm:ss'))
+    ->where('cancel_status','=','0')->count();
+    
     $availableCnt = Car::whereNotIn('id', function ($query) {
         $query->select('car_id')
               ->from('rentals')
-              ->where('start_date', '<', now())
-              ->where('end_date', '>', now());
+              ->where('cancel_status', '=', '0')
+              ->whereDate('start_date', '<=', date(now()))
+              ->whereDate('end_date', '>=', date(now()));
     })->count();
+    
     $totalEarn = Rental::sum('total_cost');
 
     return view('dashboard_admin',['carCnt'=>$carCnt,'rentalCnt'=>$rentalCnt,'availableCnt'=>$availableCnt,'totalEarn'=>$totalEarn]);
