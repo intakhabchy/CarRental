@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\RentalController as FrontendRentalController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Car;
 use App\Models\Rental;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,3 +87,8 @@ Route::delete('/bookingcancel/{id}',[FrontendRentalController::class,'destroy'])
 Route::get('/aboutus',[PageController::class,'index'])->name('customer.aboutus')->middleware('auth','checkrole:customer');
 
 require __DIR__.'/auth.php';
+
+Route::get('/readme', function () {
+    $readme = File::get(base_path('README.md'));
+    return nl2br($readme);  // Basic line break conversion
+});
