@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
 use App\Models\Car;
 use App\Models\Rental;
 use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class RentalController extends Controller
 {
@@ -93,8 +95,14 @@ class RentalController extends Controller
             'total_cost'=>$totalCost
         ]);
 
-        if($rentinsert)
+        if($rentinsert){
+
+            $bookingEmail = Auth::user()->email;
+            $emailBody = "Your booking is confirmed";
+            Mail::to($bookingEmail)->send(new SendMail($emailBody));
+            
             return redirect()->route('customer.bookingcreate')->with('success','Booking Successful');
+        }
         else
             return redirect()->route('customer.bookingcreate')->with('success','Booking Failed');
     }
