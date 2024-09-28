@@ -25,6 +25,7 @@
                                 <th class="py-2 px-4 border-b text-center">Action</th>
                                 <th class="py-2 px-4 border-b text-center">Action</th>
                                 <th class="py-2 px-4 border-b text-center">Action</th>
+                                <th class="py-2 px-4 border-b text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,6 +48,9 @@
                                             @method('DELETE')
                                             <button @if ($cl['delete_stat']==1) disabled @endif class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">@if ($cl['delete_stat']==1) Deleted @else Delete @endif</button>
                                         </form>
+                                    </td>
+                                    <td class="py-2 px-4 border-b text-center">
+                                        <a href="{{ route('admin.customerhistory',$cl['id']) }}" class="inline-block text-white px-4 py-2 rounded" style="background-color: blue;">Rental History</a>
                                     </td>
                                 </tr>
                             @endforeach

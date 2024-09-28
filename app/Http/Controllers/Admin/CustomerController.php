@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -83,5 +84,27 @@ class CustomerController extends Controller
         ]);
 
         return redirect()->route('admin.customerlist')->with('success','Customer deleted');
+    }
+
+    public function customerhistory(string $id){
+        $customerhistory = DB::table('rentals as r')
+            ->join('users as u', 'u.id', '=', 'r.user_id')
+            ->join('cars as c', 'c.id', '=', 'r.car_id')
+            ->where('u.id', $id)
+            ->select(
+                'u.name as user_name',
+                'c.name as car_name',
+                'c.brand as car_brand',
+                'r.start_date',
+                'r.end_date',
+                'r.total_cost',
+                'r.cancel_status'
+            )
+            ->get();
+
+            $customerinfo = User::where('id','=',$id)->get();
+        
+            return view('admin.customerhistory',['customerhistory'=>$customerhistory,'customerinfo'=>$customerinfo]);
+
     }
 }

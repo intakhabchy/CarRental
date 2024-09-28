@@ -76,6 +76,7 @@ Route::post('/customerstore',[CustomerController::class,'store'])->name('admin.c
 Route::get('/customeredit/{id}',[CustomerController::class,'edit'])->name('admin.customeredit')->middleware('auth','checkrole:admin');
 Route::put('/customerupdate/{id}',[CustomerController::class,'update'])->name('admin.customerupdate')->middleware('auth','checkrole:admin');
 Route::delete('/customerdelete/{id}',[CustomerController::class,'destroy'])->name('admin.customerdelete')->middleware('auth','checkrole:admin');
+Route::get('/customerhistory/{id}',[CustomerController::class,'customerhistory'])->name('admin.customerhistory')->middleware('auth','checkrole:admin');
 
 Route::get('/carlist',[FrontendCarController::class,'index'])->name('customer.carlist')->middleware('auth','checkrole:customer');
 
