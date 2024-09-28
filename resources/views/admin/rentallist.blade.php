@@ -45,7 +45,7 @@
                                     <td class="py-2 px-4 border-b text-center">{{ $rl['total_cost'] }}</td>
                                     <td class="py-2 px-4 border-b text-center">
                                         @if ($rl['cancel_status']==1) Cancelled
-                                        @elseif (strtotime($rl['start_date'])<strtotime(date('Y-m-d')) && strtotime($rl['end_date'])>strtotime(date('Y-m-d'))) Ongoing
+                                        @elseif (strtotime($rl['start_date'])<=strtotime(date('Y-m-d')) && strtotime($rl['end_date'])>=strtotime(date('Y-m-d'))) Ongoing
                                         @elseif (strtotime($rl['end_date'])<strtotime(date('Y-m-d'))) Completed
                                         @endif
                                     </td>
